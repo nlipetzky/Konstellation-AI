@@ -181,6 +181,95 @@
             display: block;
         }
 
+        /* Star System Section Styling */
+        .star-system-section {
+            position: relative;
+        }
+
+        .star-system-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: rgba(234, 179, 8, 0.5);
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .star-system-title {
+            font-size: 3rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            text-align: center;
+            color: white;
+            margin-bottom: 3rem;
+            line-height: 1.1;
+        }
+
+        .star-system-narrative {
+            font-size: 1.125rem;
+            line-height: 1.8;
+            color: rgba(243, 244, 246, 0.7);
+            text-align: center;
+            max-width: 42rem;
+            margin: 0 auto 4rem;
+        }
+
+        .star-system-divider {
+            width: 120px;
+            height: 1px;
+            background: linear-gradient(to right, transparent, rgba(234, 179, 8, 0.3), transparent);
+            margin: 0 auto 4rem;
+            position: relative;
+        }
+
+        .star-system-divider::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            border: 1px solid rgba(234, 179, 8, 0.2);
+        }
+
+        .star-system-crescendo {
+            max-width: 36rem;
+            margin: 0 auto;
+            padding: 2rem;
+            border-left: 1px solid rgba(234, 179, 8, 0.15);
+        }
+
+        .star-system-crescendo p {
+            font-size: 1rem;
+            line-height: 1.9;
+            color: rgba(234, 179, 8, 0.7);
+            margin-bottom: 1.5rem;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 400;
+        }
+
+        .star-system-crescendo p:last-child {
+            margin-bottom: 0;
+        }
+
+        @media (max-width: 768px) {
+            .star-system-title {
+                font-size: 2.5rem;
+                margin-bottom: 2rem;
+            }
+            .star-system-narrative {
+                font-size: 1rem;
+                margin-bottom: 3rem;
+            }
+            .star-system-crescendo {
+                padding: 1.5rem;
+            }
+        }
+
         /* Scroll Indicator Animation */
         @keyframes scrollBounce {
             0%, 100% { transform: translateY(0); }
@@ -240,7 +329,7 @@
                 <a href="https://cal.com/team/konstellation-ai/book-a-diagnostic-briefing" target="_blank" rel="noopener noreferrer" class="btn-primary bg-white text-black font-mono font-bold px-8 py-4 text-sm md:text-base uppercase tracking-wide border border-transparent hover:bg-gray-200">
                     [ Book The Diagnostic Briefing ]
                 </a>
-                <span class="text-xs font-mono text-slate-500">Your time matters.<br>A short intake to align... then time with the architects.</span>
+                <span class="text-xs font-mono text-slate-500">Direct access to the architects.<br>No sales team.</span>
             </div>
 
             <!-- Scroll Indicator -->
@@ -254,46 +343,31 @@
         </div>
     </section>
 
-    <!-- SECTION 2: THE DIAGNOSIS -->
-    <section id="diagnosis" class="py-24 border-t border-gray-800 bg-black">
+    <!-- SECTION 2: THE STAR SYSTEM -->
+    <section id="diagnosis" class="star-system-section py-32 border-t border-gray-800 bg-black">
         <div class="max-w-6xl mx-auto px-6">
-            <!-- Visual: Orbital System (Full Width) -->
-            <div class="relative h-96 w-full bg-[#111] border border-gray-800 flex items-center justify-center overflow-hidden mb-16">
-                <div class="orbital-system">
-                    <!-- Outer orbit (slow) -->
-                    <div class="orbit orbit-outer"></div>
-                    <!-- Inner orbit -->
-                    <div class="orbit orbit-inner"></div>
-                    <!-- Mid orbit -->
-                    <div class="orbit orbit-mid"></div>
-                    <!-- Core -->
-                    <div class="orbital-core">
-                        <span>GRAVITY</span>
-                        <span>CORE</span>
-                    </div>
-                </div>
+            <div class="star-system-label">
+                Stop Building Workflows. Start Building Assets.
             </div>
 
-            <!-- Diagnosis Copy -->
-            <div class="max-w-3xl mx-auto">
-                    <h3 class="text-3xl font-bold mb-6">The "Two-System" Splinter</h3>
-                    <p class="text-slate-400 mb-6 leading-relaxed">
-                        You are running two incompatible operating systems: one for Humans (context-driven) and one for AI (speed-driven).
-                    </p>
-                    <ul class="space-y-4 font-mono text-sm">
-                        <li class="flex items-start">
-                            <span class="text-red-500 mr-3">⚠</span>
-                            <span><strong class="text-white">The Symptom:</strong> High MOTION (Activity) but low GRAVITY (Coherence).</span>
-                        </li>
-                        <li class="flex items-start">
-                            <span class="text-red-500 mr-3">⚠</span>
-                            <span><strong class="text-white">The Result:</strong> "Mediation Theater"—leaders constantly translating between humans and bots.</span>
-                        </li>
-                        <li class="flex items-start">
-                            <span class="text-red-500 mr-3">⚠</span>
-                            <span><strong class="text-white">The Cost:</strong> You are paying an Entropy Tax on every transaction.</span>
-                        </li>
-                    </ul>
+            <h2 class="star-system-title">
+                The Star System™
+            </h2>
+
+            <div class="star-system-narrative">
+                You are trying to run a hybrid workforce on a human-only operating system. That is why your automations feel brittle and your team feels overwhelmed.
+                <br><br>
+                You need a new atomic unit.
+                <br><br>
+                A Star System governs Humans and Agents together. It fixes your architecture by fusing your strategic judgment (Capability) with machine speed (System) into a single, compounding unit.
+            </div>
+
+            <div class="star-system-divider"></div>
+
+            <div class="star-system-crescendo">
+                <p>It doesn't just execute. It captures the result.</p>
+                <p>It doesn't reset. It learns from every cycle.</p>
+                <p>It doesn't depreciate. It gets smarter the longer it runs.</p>
             </div>
         </div>
     </section>
