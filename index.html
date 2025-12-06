@@ -451,22 +451,22 @@
                 <p class="font-mono text-sm text-slate-500">Application for Diagnostic Briefing</p>
             </div>
 
-            <form class="space-y-8 border border-gray-800 p-8 md:p-12 bg-[#05080f]">
+            <form method="POST" action="https://instig8.app.n8n.cloud/webhook-test/konstellation-diagnostic" target="_blank" class="space-y-8 border border-gray-800 p-8 md:p-12 bg-[#05080f]">
                 
                 <!-- Q1 -->
                 <div>
                     <label class="block font-mono text-xs text-slate-400 mb-4 uppercase tracking-wider">01. Which state describes your operations?</label>
                     <div class="space-y-3">
                         <label class="flex items-center space-x-3 cursor-pointer group">
-                            <input type="radio" name="state" class="form-radio text-yellow-600 focus:ring-yellow-600 bg-gray-900 border-gray-700">
+                            <input type="radio" name="operations_state" value="High Activity, Low Traction (Automation Theater)" class="form-radio text-yellow-600 focus:ring-yellow-600 bg-gray-900 border-gray-700">
                             <span class="text-sm text-slate-300 group-hover:text-white">High Activity, Low Traction (Automation Theater)</span>
                         </label>
                         <label class="flex items-center space-x-3 cursor-pointer group">
-                            <input type="radio" name="state" class="form-radio text-yellow-600 focus:ring-yellow-600 bg-gray-900 border-gray-700">
+                            <input type="radio" name="operations_state" value="Manual Execution, High Quality (Bottleneck)" class="form-radio text-yellow-600 focus:ring-yellow-600 bg-gray-900 border-gray-700">
                             <span class="text-sm text-slate-300 group-hover:text-white">Manual Execution, High Quality (Bottleneck)</span>
                         </label>
                         <label class="flex items-center space-x-3 cursor-pointer group">
-                            <input type="radio" name="state" class="form-radio text-yellow-600 focus:ring-yellow-600 bg-gray-900 border-gray-700">
+                            <input type="radio" name="operations_state" value="Scaling Fast, Breaking Context (Entropy)" class="form-radio text-yellow-600 focus:ring-yellow-600 bg-gray-900 border-gray-700">
                             <span class="text-sm text-slate-300 group-hover:text-white">Scaling Fast, Breaking Context (Entropy)</span>
                         </label>
                     </div>
@@ -475,26 +475,32 @@
                 <!-- Q2 -->
                 <div>
                     <label class="block font-mono text-xs text-slate-400 mb-4 uppercase tracking-wider">02. Describe one process that is faster today but not smarter:</label>
-                    <input type="text" class="w-full p-4 text-sm font-mono placeholder-gray-700" placeholder="e.g. Our customer support bot answers tickets but doesn't tag product issues...">
+                    <input type="text" name="process_description" class="w-full p-4 text-sm font-mono placeholder-gray-700" placeholder="e.g. Our customer support bot answers tickets but doesn't tag product issues...">
                 </div>
 
                 <!-- Q3 -->
                 <div>
                     <label class="block font-mono text-xs text-slate-400 mb-4 uppercase tracking-wider">03. Current Infrastructure Scale:</label>
-                    <select class="w-full p-4 text-sm font-mono cursor-pointer">
-                        <option>Human-Only (Manual)</option>
-                        <option>Hybrid / Pilots (Zapier/Make)</option>
-                        <option>Enterprise Scale (Custom/Internal Tools)</option>
+                    <select name="infrastructure_scale" class="w-full p-4 text-sm font-mono cursor-pointer">
+                        <option value="Human-Only (Manual)">Human-Only (Manual)</option>
+                        <option value="Hybrid / Pilots (n8n/Make)">Hybrid / Pilots (Zapier/Make)</option>
+                        <option value="Enterprise Scale (Custom/Internal Tools)">Enterprise Scale (Custom/Internal Tools)</option>
                     </select>
+                </div>
+
+                <!-- Name Field -->
+                <div>
+                    <label class="block font-mono text-xs text-slate-400 mb-4 uppercase tracking-wider">04. Name:</label>
+                    <input type="text" name="name" class="w-full p-4 text-sm font-mono text-black placeholder-gray-700" placeholder="First and Last Name" required>
                 </div>
 
                 <!-- Email Capture (Implicit) -->
                 <div>
-                    <label class="block font-mono text-xs text-slate-400 mb-4 uppercase tracking-wider">04. Corporate Email:</label>
-                    <input type="text" class="w-full p-4 text-sm font-mono placeholder-gray-700" placeholder="architect@company.com">
+                    <label class="block font-mono text-xs text-slate-400 mb-4 uppercase tracking-wider">05. Corporate Email:</label>
+                    <input type="email" name="email" class="w-full p-4 text-sm font-mono text-black placeholder-gray-700" placeholder="architect@company.com" required>
                 </div>
 
-                <button type="button" class="w-full btn-primary bg-white text-black font-bold py-4 uppercase tracking-widest font-mono hover:bg-gray-200">
+                <button type="submit" class="w-full btn-primary bg-white text-black font-bold py-4 uppercase tracking-widest font-mono hover:bg-gray-200">
                     [ Submit For Architect Review ]
                 </button>
                 
