@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Konstellation AI - The Narrative Engine</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        void: '#000000',
+                        gold: '#D4A838',
+                        dim: '#111111',
+                        subtle: '#4B5563',
+                        text: '#E5E7EB'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    animation: {
+                        'pulse-core': 'pulseCore 4s infinite ease-in-out',
+                        'orbit': 'orbit 20s linear infinite',
+                        'orbit-reverse': 'orbit 25s linear infinite reverse',
+                        'drift': 'drift 10s ease-in-out infinite alternate',
+                        'fade-in': 'fadeIn 0.5s ease-out forwards',
+                    },
+                    keyframes: {
+                        pulseCore: {
+                            '0%, 100%': { transform: 'scale(1)', opacity: '1' },
+                            '50%': { transform: 'scale(1.03)', opacity: '0.95' },
+                        },
+                        orbit: {
+                            '0%': { transform: 'rotate(0deg)' },
+                            '100%': { transform: 'rotate(360deg)' },
+                        },
+                        drift: {
+                            '0%': { transform: 'translate(0,0)' },
+                            '25%': { transform: 'translate(10px, -15px)' },
+                            '50%': { transform: 'translate(-5px, 10px)' },
+                            '75%': { transform: 'translate(-15px, -5px)' },
+                            '100%': { transform: 'translate(0,0)' },
+                        },
+                        fadeIn: {
+                            '0%': { opacity: '0', transform: 'translateY(5px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        chaos1: {
+                            '0%': { transform: 'translate(0, 0)' },
+                            '20%': { transform: 'translate(80px, -60px)' },
+                            '40%': { transform: 'translate(-50px, 90px)' },
+                            '60%': { transform: 'translate(120px, 40px)' },
+                            '80%': { transform: 'translate(-70px, -80px)' },
+                            '100%': { transform: 'translate(0, 0)' },
+                        },
+                        chaos2: {
+                            '0%': { transform: 'translate(0, 0)' },
+                            '15%': { transform: 'translate(-90px, 70px)' },
+                            '35%': { transform: 'translate(60px, -50px)' },
+                            '55%': { transform: 'translate(-110px, -30px)' },
+                            '75%': { transform: 'translate(70px, 100px)' },
+                            '100%': { transform: 'translate(0, 0)' },
+                        },
+                        chaos3: {
+                            '0%': { transform: 'translate(0, 0)' },
+                            '25%': { transform: 'translate(100px, 50px)' },
+                            '45%': { transform: 'translate(-40px, -100px)' },
+                            '65%': { transform: 'translate(-80px, 60px)' },
+                            '85%': { transform: 'translate(50px, -70px)' },
+                            '100%': { transform: 'translate(0, 0)' },
+                        },
+                        chaos4: {
+                            '0%': { transform: 'translate(0, 0)' },
+                            '18%': { transform: 'translate(-60px, -90px)' },
+                            '38%': { transform: 'translate(90px, 30px)' },
+                            '58%': { transform: 'translate(-30px, 80px)' },
+                            '78%': { transform: 'translate(110px, -50px)' },
+                            '100%': { transform: 'translate(0, 0)' },
+                        },
+                        chaos5: {
+                            '0%': { transform: 'translate(0, 0)' },
+                            '22%': { transform: 'translate(70px, 100px)' },
+                            '42%': { transform: 'translate(-100px, -40px)' },
+                            '62%': { transform: 'translate(40px, -90px)' },
+                            '82%': { transform: 'translate(-80px, 50px)' },
+                            '100%': { transform: 'translate(0, 0)' },
+                        },
+                        chaos6: {
+                            '0%': { transform: 'translate(0, 0)' },
+                            '16%': { transform: 'translate(-50px, 110px)' },
+                            '36%': { transform: 'translate(110px, -60px)' },
+                            '56%': { transform: 'translate(-90px, 40px)' },
+                            '76%': { transform: 'translate(60px, -80px)' },
+                            '100%': { transform: 'translate(0, 0)' },
+                        },
+                        chaos7: {
+                            '0%': { transform: 'translate(0, 0)' },
+                            '20%': { transform: 'translate(85px, -70px)' },
+                            '40%': { transform: 'translate(-70px, 95px)' },
+                            '60%': { transform: 'translate(95px, 45px)' },
+                            '80%': { transform: 'translate(-55px, -95px)' },
+                            '100%': { transform: 'translate(0, 0)' },
+                        },
+                        chaos8: {
+                            '0%': { transform: 'translate(0, 0)' },
+                            '19%': { transform: 'translate(-95px, 55px)' },
+                            '39%': { transform: 'translate(55px, -85px)' },
+                            '59%': { transform: 'translate(-85px, -45px)' },
+                            '79%': { transform: 'translate(75px, 95px)' },
+                            '100%': { transform: 'translate(0, 0)' },
+                        },
+                        chaos9: {
+                            '0%': { transform: 'translate(0, 0)' },
+                            '21%': { transform: 'translate(65px, 85px)' },
+                            '41%': { transform: 'translate(-105px, -55px)' },
+                            '61%': { transform: 'translate(45px, -75px)' },
+                            '81%': { transform: 'translate(-75px, 65px)' },
+                            '100%': { transform: 'translate(0, 0)' },
+                        },
+                        chaos10: {
+                            '0%': { transform: 'translate(0, 0)' },
+                            '17%': { transform: 'translate(-45px, -100px)' },
+                            '37%': { transform: 'translate(100px, 35px)' },
+                            '57%': { transform: 'translate(-35px, 75px)' },
+                            '77%': { transform: 'translate(85px, -65px)' },
+                            '100%': { transform: 'translate(0, 0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body {
+            background-color: #000000;
+            color: #E5E7EB;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Architectural Grid */
+        .bg-grid {
+            background-size: 40px 40px;
+            background-image:
+                linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+        }
+
+        .gold-glow {
+            filter: drop-shadow(0 0 15px rgba(212, 168, 56, 0.6));
+        }
+
+        /* Navigation Dots */
+        .nav-dot {
+            transition: all 0.3s ease;
+        }
+        .nav-dot.active {
+            background-color: #D4A838;
+            transform: scale(1.2);
+            border-color: #D4A838;
+        }
+        
+        /* Smooth transitions for SVG elements */
+        #starLayer, #gravityLayer, #orbitalLayer, #chaosLayer {
+            transition: opacity 1s ease, transform 1s ease;
+        }
+
+        /* White pulse circle - expands from center across entire screen */
+        @keyframes whitePulse {
+            0% { 
+                transform: scale(0);
+                opacity: 0.9;
+            }
+            5% { 
+                transform: scale(2);
+                opacity: 0.85;
+            }
+            15% { 
+                transform: scale(10);
+                opacity: 0.7;
+            }
+            30% { 
+                transform: scale(25);
+                opacity: 0.5;
+            }
+            50% { 
+                transform: scale(50);
+                opacity: 0.3;
+            }
+            70% { 
+                transform: scale(75);
+                opacity: 0.15;
+            }
+            90% { 
+                transform: scale(95);
+                opacity: 0.05;
+            }
+            100% { 
+                transform: scale(100);
+                opacity: 0;
+            }
+        }
+        /* Planet entering orbit animation */
+        @keyframes enterOrbit {
+            0% { 
+                transform: translate(200px, 0px) rotate(0deg);
+                opacity: 0;
+            }
+            30% { 
+                transform: translate(150px, 0px) rotate(0deg);
+                opacity: 0.5;
+            }
+            60% { 
+                transform: translate(120px, 0px) rotate(0deg);
+                opacity: 0.8;
+            }
+            100% { 
+                transform: translate(110px, 0px) rotate(0deg);
+                opacity: 0.9;
+            }
+        }
+        @keyframes orbitPlanet {
+            0% { 
+                transform: rotate(0deg);
+            }
+            100% { 
+                transform: rotate(360deg);
+            }
+        }
+        @keyframes pulseGlow {
+            0%, 100% { 
+                opacity: 0.5;
+                transform: scale(1);
+            }
+            50% { 
+                opacity: 0.85;
+                transform: scale(1.1);
+            }
+        }
+        @keyframes pulseInner {
+            0%, 100% { 
+                opacity: 0.95;
+                transform: scale(1);
+            }
+            50% { 
+                opacity: 1;
+                transform: scale(1.12);
+            }
+        }
+        @keyframes pulseBright {
+            0%, 100% { 
+                opacity: 0.9;
+                transform: scale(1);
+            }
+            50% { 
+                opacity: 1;
+                transform: scale(1.2);
+            }
+        }
+        @keyframes pulseCore {
+            0%, 100% { 
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% { 
+                opacity: 1;
+                transform: scale(1.08);
+            }
+        }
+
+        @keyframes orbitSimple {
+            0%   { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .orbit-ring-220 {
+            animation: orbitSimple 26s linear infinite;
+            transform-origin: 0 0;
+        }
+
+        .orbit-ring-170 {
+            animation: orbitSimple 20s linear infinite;
+            transform-origin: 0 0;
+        }
+
+        .orbit-ring-140 {
+            animation: orbitSimple 16s linear infinite;
+            transform-origin: 0 0;
+        }
+
+        .orbit-ring-110 {
+            animation: orbitSimple 12s linear infinite;
+            transform-origin: 0 0;
+        }
+
+        .orbit-ring-80 {
+            animation: orbitSimple 9s linear infinite;
+            transform-origin: 0 0;
+        }
+
+        /* Chaotic drift animations */
+        @keyframes chaos1 {
+            0% { transform: translate(0, 0); }
+            20% { transform: translate(80px, -60px); }
+            40% { transform: translate(-50px, 90px); }
+            60% { transform: translate(120px, 40px); }
+            80% { transform: translate(-70px, -80px); }
+            100% { transform: translate(0, 0); }
+        }
+        @keyframes chaos2 {
+            0% { transform: translate(0, 0); }
+            15% { transform: translate(-90px, 70px); }
+            35% { transform: translate(60px, -50px); }
+            55% { transform: translate(-110px, -30px); }
+            75% { transform: translate(70px, 100px); }
+            100% { transform: translate(0, 0); }
+        }
+        @keyframes chaos3 {
+            0% { transform: translate(0, 0); }
+            25% { transform: translate(100px, 50px); }
+            45% { transform: translate(-40px, -100px); }
+            65% { transform: translate(-80px, 60px); }
+            85% { transform: translate(50px, -70px); }
+            100% { transform: translate(0, 0); }
+        }
+        @keyframes chaos4 {
+            0% { transform: translate(0, 0); }
+            18% { transform: translate(-60px, -90px); }
+            38% { transform: translate(90px, 30px); }
+            58% { transform: translate(-30px, 80px); }
+            78% { transform: translate(110px, -50px); }
+            100% { transform: translate(0, 0); }
+        }
+        @keyframes chaos5 {
+            0% { transform: translate(0, 0); }
+            22% { transform: translate(70px, 100px); }
+            42% { transform: translate(-100px, -40px); }
+            62% { transform: translate(40px, -90px); }
+            82% { transform: translate(-80px, 50px); }
+            100% { transform: translate(0, 0); }
+        }
+        @keyframes chaos6 {
+            0% { transform: translate(0, 0); }
+            16% { transform: translate(-50px, 110px); }
+            36% { transform: translate(110px, -60px); }
+            56% { transform: translate(-90px, 40px); }
+            76% { transform: translate(60px, -80px); }
+            100% { transform: translate(0, 0); }
+        }
+        @keyframes chaos7 {
+            0% { transform: translate(0, 0); }
+            20% { transform: translate(85px, -70px); }
+            40% { transform: translate(-70px, 95px); }
+            60% { transform: translate(95px, 45px); }
+            80% { transform: translate(-55px, -95px); }
+            100% { transform: translate(0, 0); }
+        }
+        @keyframes chaos8 {
+            0% { transform: translate(0, 0); }
+            19% { transform: translate(-95px, 55px); }
+            39% { transform: translate(55px, -85px); }
+            59% { transform: translate(-85px, -45px); }
+            79% { transform: translate(75px, 95px); }
+            100% { transform: translate(0, 0); }
+        }
+        @keyframes chaos9 {
+            0% { transform: translate(0, 0); }
+            21% { transform: translate(65px, 85px); }
+            41% { transform: translate(-105px, -55px); }
+            61% { transform: translate(45px, -75px); }
+            81% { transform: translate(-75px, 65px); }
+            100% { transform: translate(0, 0); }
+        }
+        @keyframes chaos10 {
+            0% { transform: translate(0, 0); }
+            17% { transform: translate(-45px, -100px); }
+            37% { transform: translate(100px, 35px); }
+            57% { transform: translate(-35px, 75px); }
+            77% { transform: translate(85px, -65px); }
+            100% { transform: translate(0, 0); }
+        }
+    </style>
+</head>
+<body class="bg-void min-h-screen flex flex-col relative overflow-hidden">
+
+    <!-- Background Grid -->
+    <div class="fixed inset-0 bg-grid z-0 pointer-events-none"></div>
+
+    <!-- HEADER / NAV -->
+    <header class="relative z-20 w-full max-w-7xl mx-auto p-6 flex justify-between items-center border-b border-white/10 bg-void/80 backdrop-blur-sm">
+        <div class="flex items-center space-x-3">
+            <div class="w-3 h-3 bg-gold rounded-full"></div>
+            <span class="text-white font-bold tracking-widest uppercase text-sm">Konstellation AI</span>
+        </div>
+        <div class="flex items-center space-x-6">
+            <button onclick="toggleLegacyMode()" id="legacyBtn" class="text-xs uppercase tracking-widest px-4 py-2 border border-white/20 rounded hover:bg-white/10 transition-colors text-gray-400">
+                View Legacy State
+            </button>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="relative z-10 flex-grow flex flex-col lg:flex-row items-center justify-center w-full max-w-7xl mx-auto p-4 lg:p-12 gap-12">
+
+        <!-- LEFT: THE VISUAL ENGINE -->
+        <div class="w-full lg:w-3/5 h-[450px] lg:h-[600px] relative flex items-center justify-center">
+            
+            <svg viewBox="0 0 600 600" class="w-full h-full max-h-[600px] drop-shadow-2xl" id="systemSvg">
+                <defs>
+                    <radialGradient id="gravityField" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+                        <stop offset="0%" stop-color="#D4A838" stop-opacity="0.15" />
+                        <stop offset="100%" stop-color="#D4A838" stop-opacity="0" />
+                    </radialGradient>
+                    <!-- Warm star gradients -->
+                    <radialGradient id="starCore" cx="50%" cy="50%" r="50%">
+                        <stop offset="0%" stop-color="#FFD700" stop-opacity="1" />
+                        <stop offset="40%" stop-color="#FFA500" stop-opacity="0.95" />
+                        <stop offset="70%" stop-color="#FF8C00" stop-opacity="0.8" />
+                        <stop offset="100%" stop-color="#D4A838" stop-opacity="0.6" />
+                    </radialGradient>
+                    <radialGradient id="starInner" cx="50%" cy="50%" r="50%">
+                        <stop offset="0%" stop-color="#FFF8DC" stop-opacity="1" />
+                        <stop offset="50%" stop-color="#FFD700" stop-opacity="0.9" />
+                        <stop offset="100%" stop-color="#FFA500" stop-opacity="0.7" />
+                    </radialGradient>
+                    <radialGradient id="starWave" cx="50%" cy="50%" r="50%">
+                        <stop offset="0%" stop-color="#FFD700" stop-opacity="0.3" />
+                        <stop offset="50%" stop-color="#FFA500" stop-opacity="0.15" />
+                        <stop offset="100%" stop-color="#FF8C00" stop-opacity="0" />
+                    </radialGradient>
+                    <!-- Glow filter for warm light -->
+                    <filter id="warmGlow" x="-50%" y="-50%" width="200%" height="200%">
+                        <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+                        <feMerge>
+                            <feMergeNode in="coloredBlur"/>
+                            <feMergeNode in="SourceGraphic"/>
+                        </feMerge>
+                    </filter>
+                </defs>
+
+                <!-- LEGACY / CHAOS LAYER -->
+                <g id="chaosLayer" class="opacity-0 pointer-events-none transition-opacity duration-1000">
+                    <!-- Chaotic Particles - Each with unique animation -->
+                    <circle cx="150" cy="100" r="3" fill="#6B7280" opacity="0.7" style="animation: chaos1 8s ease-in-out infinite;" />
+                    <circle cx="450" cy="120" r="4" fill="#6B7280" opacity="0.6" style="animation: chaos2 9s ease-in-out infinite;" />
+                    <circle cx="100" cy="450" r="3" fill="#6B7280" opacity="0.8" style="animation: chaos3 7s ease-in-out infinite;" />
+                    <circle cx="500" cy="400" r="4" fill="#6B7280" opacity="0.5" style="animation: chaos4 10s ease-in-out infinite;" />
+                    <circle cx="50" cy="300" r="2" fill="#6B7280" opacity="0.9" style="animation: chaos5 8.5s ease-in-out infinite;" />
+                    <circle cx="550" cy="250" r="3" fill="#6B7280" opacity="0.6" style="animation: chaos6 9.5s ease-in-out infinite;" />
+                    <circle cx="200" cy="500" r="3" fill="#6B7280" opacity="0.7" style="animation: chaos7 7.5s ease-in-out infinite;" />
+                    <circle cx="400" cy="80" r="2.5" fill="#6B7280" opacity="0.6" style="animation: chaos8 8.8s ease-in-out infinite;" />
+                    <circle cx="80" cy="200" r="3" fill="#6B7280" opacity="0.7" style="animation: chaos9 9.2s ease-in-out infinite;" />
+                    <circle cx="520" cy="500" r="2.5" fill="#6B7280" opacity="0.8" style="animation: chaos10 7.8s ease-in-out infinite;" />
+                    <circle cx="250" cy="50" r="2" fill="#6B7280" opacity="0.5" style="animation: chaos1 9.3s ease-in-out infinite reverse;" />
+                    <circle cx="350" cy="550" r="3" fill="#6B7280" opacity="0.6" style="animation: chaos2 8.2s ease-in-out infinite reverse;" />
+                    <circle cx="180" cy="300" r="2.5" fill="#6B7280" opacity="0.7" style="animation: chaos3 10.2s ease-in-out infinite;" />
+                    <circle cx="420" cy="350" r="3" fill="#6B7280" opacity="0.6" style="animation: chaos4 7.3s ease-in-out infinite reverse;" />
+                    <circle cx="300" cy="150" r="2" fill="#6B7280" opacity="0.8" style="animation: chaos5 8.7s ease-in-out infinite;" />
+                    
+                    <!-- Disconnected Lines - Also animated chaotically -->
+                    <line x1="150" y1="100" x2="180" y2="130" stroke="#6B7280" stroke-width="0.5" opacity="0.2" style="animation: chaos1 8s ease-in-out infinite;" />
+                    <line x1="450" y1="120" x2="420" y2="150" stroke="#6B7280" stroke-width="0.5" opacity="0.2" style="animation: chaos2 9s ease-in-out infinite;" />
+                    <line x1="100" y1="450" x2="130" y2="420" stroke="#6B7280" stroke-width="0.5" opacity="0.15" style="animation: chaos3 7s ease-in-out infinite;" />
+                    <line x1="500" y1="400" x2="470" y2="370" stroke="#6B7280" stroke-width="0.5" opacity="0.15" style="animation: chaos4 10s ease-in-out infinite;" />
+                    
+                    <!-- Label -->
+                    <text x="300" y="520" text-anchor="middle" fill="#EF4444" font-size="12" font-weight="bold" letter-spacing="2">CHAOS / DRIFT</text>
+                </g>
+
+                <!-- LAYER 3: ORBIT / MOTION -->
+                <g id="orbitalLayer" class="opacity-0 transition-opacity duration-1000">
+                    <!-- Orbital Rings -->
+                    <circle cx="300" cy="300" r="220" fill="none" stroke="#444" stroke-width="1" stroke-dasharray="2 4" opacity="0.6" />
+                    <circle cx="300" cy="300" r="170" fill="none" stroke="#444" stroke-width="1" stroke-dasharray="4 4" opacity="0.4" />
+                    
+                    <!-- Planets (Processes) -->
+                    <g id="motionAnim" class="animate-[orbit_30s_linear_infinite]">
+                        <g transform="translate(300, 300)">
+                            <!-- Outer Planet -->
+                            <circle cx="220" cy="0" r="6" fill="#FFF" />
+                            <text x="235" y="4" fill="#9CA3AF" font-size="8" opacity="0.7">Activity</text>
+                            
+                            <!-- Inner Planet -->
+                            <circle cx="0" cy="170" r="4" fill="#FFF" />
+                            
+                            <!-- Particles (Activity) -->
+                            <circle cx="-220" cy="0" r="3" fill="#6B7280" />
+                            <circle cx="0" cy="-220" r="3" fill="#6B7280" />
+                            <circle cx="150" cy="150" r="2" fill="#6B7280" />
+                            <circle cx="-150" cy="-150" r="2" fill="#6B7280" />
+                        </g>
+                    </g>
+                </g>
+
+                <!-- SPECIAL ORBITAL LAYER FOR FINAL STAR SYSTEM VIEW (STEP 5 ONLY) -->
+                <g id="orbitalLayerFinal" class="opacity-0 transition-opacity duration-1000">
+                    <g transform="translate(300, 300)">
+                        <!-- Outer ring: r = 220 -->
+                        <g class="orbit-ring-220">
+                            <circle cx="220" cy="0" r="6" fill="#FFFFFF" />
+                        </g>
+
+                        <!-- r = 170 -->
+                        <g class="orbit-ring-170">
+                            <circle cx="170" cy="0" r="5" fill="#FFFFFF" />
+                        </g>
+
+                        <!-- r = 140 -->
+                        <g class="orbit-ring-140">
+                            <circle cx="140" cy="0" r="4" fill="#FFFFFF" />
+                        </g>
+
+                        <!-- r = 110 -->
+                        <g class="orbit-ring-110">
+                            <circle cx="110" cy="0" r="3.5" fill="#FFFFFF" />
+                        </g>
+
+                        <!-- r = 80 -->
+                        <g class="orbit-ring-80">
+                            <circle cx="80" cy="0" r="3" fill="#FFFFFF" />
+                        </g>
+                    </g>
+                </g>
+
+                <!-- LAYER 2: GRAVITY FIELD -->
+                <g id="gravityLayer" class="opacity-0 transition-opacity duration-1000">
+                    <!-- The Field -->
+                    <circle cx="300" cy="300" r="140" fill="url(#gravityField)" class="animate-pulse-core" />
+                    
+                    <!-- Gravity Rings -->
+                    <circle cx="300" cy="300" r="80" fill="none" stroke="#D4A838" stroke-width="0.5" opacity="0.3" />
+                    <circle cx="300" cy="300" r="110" fill="none" stroke="#D4A838" stroke-width="0.5" opacity="0.2" />
+                    <circle cx="300" cy="300" r="140" fill="none" stroke="#D4A838" stroke-width="0.5" opacity="0.1" />
+                    
+                    <!-- Planet entering orbit - White dot -->
+                    <g id="planetOrbit" transform="translate(300, 300)">
+                        <!-- Rotating group for orbit -->
+                        <g id="planetRotateGroup" style="animation: orbitPlanet 8s linear 3s infinite;">
+                            <!-- Planet dot - starts outside, enters orbit -->
+                            <g id="planetGroup" style="animation: enterOrbit 3s ease-out forwards;">
+                                <circle cx="0" cy="0" r="6" fill="#FFFFFF" opacity="0.9" filter="url(#warmGlow)" />
+                            </g>
+                        </g>
+                    </g>
+                </g>
+
+                <!-- LAYER 1: THE STAR -->
+                <g id="starLayer" class="transition-opacity duration-1000">
+                    <!-- Group centered at origin for proper scaling -->
+                    <g transform="translate(300, 300)">
+                        <!-- White Pulse Circle - Expands from center across entire screen (only for Star step) -->
+                        <g id="whitePulseCircle" style="animation: whitePulse 3s ease-out infinite;">
+                            <circle cx="0" cy="0" r="5" fill="#FFFFFF" opacity="0.8" />
+                        </g>
+                        
+                        <!-- Outer Glow Ring - Pulses with core -->
+                        <g style="animation: pulseGlow 3s ease-in-out infinite;">
+                            <circle cx="0" cy="0" r="45" fill="none" stroke="#FFD700" stroke-width="2" opacity="0.5" filter="url(#warmGlow)" />
+                        </g>
+                        
+                        <!-- Core Outer Ring - Pulses with core -->
+                        <g style="animation: pulseCore 3s ease-in-out infinite;">
+                            <circle cx="0" cy="0" r="38" fill="none" stroke="#FFA500" stroke-width="2.5" opacity="0.6" />
+                        </g>
+                        
+                        <!-- Main Star Body - Core pulse -->
+                        <g style="animation: pulseCore 3s ease-in-out infinite;">
+                            <circle cx="0" cy="0" r="32" fill="url(#starCore)" filter="url(#warmGlow)" />
+                        </g>
+                        
+                        <!-- Inner Warm Core - Stronger pulse -->
+                        <g style="animation: pulseInner 3s ease-in-out infinite;">
+                            <circle cx="0" cy="0" r="22" fill="url(#starInner)" opacity="0.95" />
+                        </g>
+                        
+                        <!-- Brightest Center - Most pronounced pulse -->
+                        <g style="animation: pulseBright 3s ease-in-out infinite;">
+                            <circle cx="0" cy="0" r="12" fill="#FFF8DC" opacity="0.9" />
+                        </g>
+                    </g>
+                </g>
+
+            </svg>
+        </div>
+
+        <!-- RIGHT: STORY ENGINE -->
+        <div class="w-full lg:w-2/5 flex flex-col justify-center min-h-[400px]">
+            
+            <!-- Step Indicators -->
+            <div class="flex space-x-2 mb-8" id="navDots">
+                <!-- Dots generated via JS -->
+            </div>
+
+            <!-- Dynamic Content Container -->
+            <div id="narrativeContent" class="animate-fade-in">
+                <!-- Content injected via JS -->
+            </div>
+
+            <!-- Controls -->
+            <div class="flex items-center space-x-4 mt-10 pt-6 border-t border-white/10">
+                <button onclick="prevStep()" class="px-6 py-3 rounded border border-white/20 hover:bg-white/5 text-sm text-gray-300 transition-colors uppercase tracking-wider">
+                    Previous
+                </button>
+                <button onclick="nextStep()" class="px-8 py-3 rounded bg-gold hover:bg-yellow-600 text-black text-sm font-bold transition-colors uppercase tracking-wider shadow-lg shadow-gold/20">
+                    Next Concept
+                </button>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        // NARRATIVE DATA
+        const storyData = [
+            {
+                step: 0,
+                tag: "The Problem / The Lens",
+                title: "Managing The Wrong System",
+                metaphor: "Automation Theater",
+                desc: "Companies are spending millions on AI. Getting chaos back. It's not the technology. It's that you're trying to coordinate humans and AI using an operating system designed for humans alone.",
+                frame: "The Insight: You can't see the relationships. You can't see what compounds. The Star System is a lens that makes hybrid coordination visible.",
+                visualState: { star: 0, gravity: 0, orbit: 0, motion: false, chaos: 1 }
+            },
+            {
+                step: 1,
+                tag: "The Source",
+                title: "The Star",
+                metaphor: "What Creates Value",
+                desc: "In a star system, the star is the source of all energy. It creates the conditions that make everything else possible. This is what your people bring. Their judgment. Their expertise.",
+                frame: "Management Frame: You're not just managing people. You're managing what they create. If there's no system around them, what they create evaporates.",
+                visualState: { star: 1, gravity: 0, orbit: 0, motion: false, chaos: 0 }
+            },
+            {
+                step: 2,
+                tag: "The Force",
+                title: "Gravity",
+                metaphor: "What Holds Everything Together",
+                desc: "In a star system, gravity is invisible. But it's what creates relationship. Strong gravity = everything stays in orbit. Weak gravity = drift and chaos. This is your data. Your context. Your organizational memory.",
+                frame: "Management Frame: Gravity is what prevents collisions. It's the shared memory that allows humans and AI to work together instead of flying apart.",
+                visualState: { star: 1, gravity: 1, orbit: 0, motion: false, chaos: 0 }
+            },
+            {
+                step: 3,
+                tag: "The Patterns",
+                title: "Process",
+                metaphor: "What You Can See And Manage",
+                desc: "Planets follow predictable paths. You can track them. Measure them. Manage them. These are your repeatable workflows. But without gravity, they drift the moment someone new touches them.",
+                frame: "Management Frame: Look for patterns, not tasks. What orbits are stable? What's drifting? Can you see your orbits, or just the chaos?",
+                visualState: { star: 1, gravity: 1, orbit: 1, motion: false, chaos: 0 }
+            },
+            {
+                step: 4,
+                tag: "The Scale",
+                title: "Motion",
+                metaphor: "Infinite Execution",
+                desc: "Motion is what keeps everything alive. Too little = collapse. Too much = escape. This is where AI lives. Infinite velocity applied to patterns that already have architecture.",
+                frame: "Management Frame: AI doesn't fix weak systems. It amplifies them. Weak gravity + AI = faster chaos. Strong gravity + AI = compounding capability.",
+                visualState: { star: 1, gravity: 1, orbit: 1, motion: true, chaos: 0 }
+            },
+            {
+                step: 5,
+                tag: "The Build",
+                title: "The Star System",
+                metaphor: "What You're Actually Building",
+                desc: "A star alone burns out. Gravity alone is empty. Motion alone is chaos. But together? They're a system. Self-organizing. Self-correcting. Compounding.",
+                frame: "Management Frame: The Star System is your operating system for the AI age. Not people OR technology. The complete system where they coordinate.",
+                visualState: { star: 1, gravity: 1, orbit: 1, motion: true, chaos: 0 }
+            }
+        ];
+
+        let currentStep = 0;
+        let isLegacyMode = false;
+
+        function initNavDots() {
+            const container = document.getElementById('navDots');
+            container.innerHTML = '';
+            storyData.forEach((_, idx) => {
+                const dot = document.createElement('button');
+                dot.onclick = () => setStep(idx);
+                dot.className = `nav-dot w-2 h-2 rounded-full border border-gray-600 bg-transparent hover:bg-white/20 ${idx === 0 ? 'active' : ''}`;
+                container.appendChild(dot);
+            });
+        }
+
+        function updateVisuals() {
+            const data = storyData[currentStep];
+            const star = document.getElementById('starLayer');
+            const gravity = document.getElementById('gravityLayer');
+            const orbit = document.getElementById('orbitalLayer');
+            const motionAnim = document.getElementById('motionAnim');
+            const chaos = document.getElementById('chaosLayer');
+            const whitePulse = document.getElementById('whitePulseCircle');
+            const orbitalFinal = document.getElementById('orbitalLayerFinal');
+
+            // Handle Chaos Layer
+            if (isLegacyMode || data.visualState.chaos) {
+                chaos.style.opacity = '1';
+            } else {
+                chaos.style.opacity = '0';
+            }
+
+            // Handle White Pulse Circle - only show for Star step (step 1)
+            if (whitePulse) {
+                if (currentStep === 1 && !isLegacyMode) {
+                    whitePulse.style.opacity = '1';
+                    whitePulse.style.display = 'block';
+                } else {
+                    whitePulse.style.opacity = '0';
+                    whitePulse.style.display = 'none';
+                }
+            }
+
+            // Set Opacity for other layers if NOT legacy mode
+            // If in legacy mode, we force specific states
+            if (!isLegacyMode) {
+                star.style.opacity = data.visualState.star;
+                gravity.style.opacity = data.visualState.gravity;
+
+                // Default: original orbital layer follows visualState.orbit,
+                // final layer is hidden
+                orbit.style.opacity = data.visualState.orbit;
+                if (orbitalFinal) orbitalFinal.style.opacity = '0';
+
+                // For the final "Star System" view (step 5),
+                // hide the original orbital layer and show the multi-ring version
+                if (currentStep === 5 && !isLegacyMode && orbitalFinal) {
+                    orbit.style.opacity = '0';
+                    orbitalFinal.style.opacity = '1';
+                }
+
+                // Handle Motion Animation (only affects original motion group)
+                if (data.visualState.motion) {
+                    motionAnim.style.animationPlayState = 'running';
+                } else {
+                    motionAnim.style.animationPlayState = 'paused';
+                }
+            } else {
+                // Legacy Mode Visual Overrides
+                star.style.opacity = '1';
+                gravity.style.opacity = '0.1';
+                orbit.style.opacity = '0';
+            }
+        }
+
+        function renderText() {
+            const container = document.getElementById('narrativeContent');
+            
+            // Re-trigger fade animation
+            container.classList.remove('animate-fade-in');
+            void container.offsetWidth; // trigger reflow
+            container.classList.add('animate-fade-in');
+
+            if (isLegacyMode) {
+                 container.innerHTML = `
+                    <div class="mb-2 flex items-center space-x-2">
+                        <span class="text-red-500 text-xs font-bold uppercase tracking-widest">Legacy Mode</span>
+                    </div>
+                    <h1 class="text-4xl text-white font-light mb-2">Why Everything Feels Like Chaos</h1>
+                    <h2 class="text-xl text-gray-400 mb-6 font-medium">Stars Without Systems</h2>
+                    
+                    <div class="space-y-6">
+                        <p class="text-lg text-gray-200 leading-relaxed font-light border-l-2 border-red-500 pl-4">
+                            "Brilliant people. Working hard. Creating value. And when they leave, it all evaporates. No gravity. No architecture. Just stars burning out."
+                        </p>
+                        <div class="bg-red-900/10 p-5 rounded border border-red-900/30">
+                            <p class="text-sm text-gray-300">
+                                <strong class="text-red-400 block mb-1">The Result</strong>
+                                You tried to add AI to fix it. But there was nothing to automate. Just chaos moving faster.
+                            </p>
+                        </div>
+                    </div>
+                `;
+            } else {
+                const data = storyData[currentStep];
+                container.innerHTML = `
+                    <div class="mb-2 flex items-center space-x-2">
+                        <span class="text-gold text-xs font-bold uppercase tracking-widest">${data.tag}</span>
+                    </div>
+                    <h1 class="text-4xl text-white font-light mb-2">${data.title}</h1>
+                    <h2 class="text-xl text-gray-400 mb-6 font-medium">${data.metaphor}</h2>
+                    
+                    <div class="space-y-6">
+                        <p class="text-lg text-gray-200 leading-relaxed font-light border-l-2 border-white/20 pl-4">
+                            "${data.desc}"
+                        </p>
+                        <div class="bg-white/5 p-5 rounded border border-white/10">
+                            <p class="text-sm text-gray-300">
+                                ${data.frame}
+                            </p>
+                        </div>
+                    </div>
+                `;
+            }
+
+            // Update dots
+            document.querySelectorAll('.nav-dot').forEach((dot, idx) => {
+                if (idx === currentStep && !isLegacyMode) dot.classList.add('active');
+                else dot.classList.remove('active');
+            });
+        }
+
+        function setStep(step) {
+            if (isLegacyMode) toggleLegacyMode(); // Exit legacy if clicking nav
+            currentStep = step;
+            updateVisuals();
+            renderText();
+        }
+
+        function nextStep() {
+            if (isLegacyMode) toggleLegacyMode();
+            else if (currentStep < storyData.length - 1) {
+                currentStep++;
+                updateVisuals();
+                renderText();
+            }
+        }
+
+        function prevStep() {
+            if (isLegacyMode) toggleLegacyMode();
+            else if (currentStep > 0) {
+                currentStep--;
+                updateVisuals();
+                renderText();
+            }
+        }
+
+        function toggleLegacyMode() {
+            isLegacyMode = !isLegacyMode;
+            const btn = document.getElementById('legacyBtn');
+            
+            if (isLegacyMode) {
+                btn.innerText = "Back to Narrative";
+                btn.classList.add('bg-white', 'text-black');
+            } else {
+                btn.innerText = "View Legacy State";
+                btn.classList.remove('bg-white', 'text-black');
+            }
+            updateVisuals();
+            renderText();
+        }
+
+        // Init
+        window.onload = () => {
+            initNavDots();
+            updateVisuals();
+            renderText();
+        };
+
+    </script>
+</body>
+</html>
